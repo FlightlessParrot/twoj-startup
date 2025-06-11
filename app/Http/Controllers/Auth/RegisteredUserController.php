@@ -22,20 +22,21 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'lowercase', 'regex:/^\+?[0-9]{10,15}$/', 'max:16', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->string('password')),
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
-
+        
         Auth::login($user);
-
         return response()->noContent();
     }
 }
