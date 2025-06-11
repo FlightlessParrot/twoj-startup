@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class EmailFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'email' => $this->faker->unique()->safeEmail(),
+            'user_id' => User::factory(), // Automatically create a user for the email
         ];
     }
 }
