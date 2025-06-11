@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Js;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the users.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(User::all(), 200);
     }
@@ -19,7 +21,7 @@ class UserController extends Controller
     /**
      * Display the specified user.
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
         return response()->json($user, 200);
     }
@@ -27,7 +29,7 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): JsonResponse
     {
         $data = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
@@ -44,7 +46,7 @@ class UserController extends Controller
     /**
      * Update the specified user's password.
      */
-    public function updatePassword(Request $request, User $user)
+    public function updatePassword(Request $request, User $user): JsonResponse
     {
         $data = $request->validate([
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -59,7 +61,7 @@ class UserController extends Controller
     /**
      * Remove the specified user from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
 
