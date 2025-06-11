@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'phone' => fake()->unique()->phoneNumber(),
+            'phone' =>fake()->unique()->regexify('/^\+?[0-9]{10,15}$/'),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

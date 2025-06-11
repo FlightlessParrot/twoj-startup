@@ -18,7 +18,7 @@ class AuthenticationTest extends TestCase
             'phone' => $user->phone,
             'password' => 'password',
         ]);
-
+        
         $this->assertAuthenticated();
         $response->assertNoContent();
     }
